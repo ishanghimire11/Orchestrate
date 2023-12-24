@@ -9,8 +9,9 @@ import { Button } from '@/components/ui/button'
 import NavItems from '../NavItems'
 import MobileNav from '../MobileNav'
 
+
 const Header = () => {
-  return (
+    return (
     <header className='flex items-center py-2 justify-between bg-gray-100 shadow-md px-4 md:px-12 lg:px-16 gap-x-8'>
         <SignedIn>
             <div className='hidden lg:block flex-1'>
@@ -50,4 +51,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default Header;
