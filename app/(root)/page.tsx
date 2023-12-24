@@ -4,20 +4,9 @@ import Link from 'next/link';
 
 import heroImage from "@/app/heroImage1.jpg"
 import { Button } from '@/components/ui/button';
-import { ArrowBigDownIcon } from 'lucide-react';
 import { CaretDownIcon } from '@radix-ui/react-icons';
 
-const Section = ({children, className:classes, id}: {children: React.ReactNode, className?: string, id?: string }) => {
-  return (
-    <section id={id} className={`px-4 md:px-12 lg:px-16 ${classes}`}>
-      {children}
-    </section>
-  )
-}
-
-export { Section };
-
-export function Hero(){
+const Hero = () => {
     return(
         <div className='h-[100vh] object-cover flex items-center justify-center relative px-8 md:px-12 lg:px-16' >
           <Image src={heroImage} width={1920} height={1080} alt='hero' className='h-full w-full object-cover absolute z-0 hero-image'/>
@@ -36,10 +25,4 @@ export function Hero(){
     )
 }
 
-export default function Home() {
-  return (
-    <>
-    <Hero />
-    </>
-  )
-}
+export default Hero;

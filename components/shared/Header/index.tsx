@@ -35,14 +35,16 @@ const Header = () => {
                 </SignedIn>
             </div>
 
-            <SignedOut>
-                <Link href={"/sign-in"}>
-                    <Button className='flex items-center gap-x-2 justify-end'>
-                            Sign-in
-                            <ArrowRightIcon />
-                    </Button>
-                </Link>
-            </SignedOut>
+            <div className='flex justify-end items-center'>
+                <SignedOut>
+                    <Link href={"/sign-in"}>
+                        <Button className='flex items-center gap-x-2 justify-end'>
+                                Sign-in
+                                <ArrowRightIcon />
+                        </Button>
+                    </Link>
+                </SignedOut>
+            </div>
         </div>
     </header>
   )
