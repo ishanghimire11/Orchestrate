@@ -14,7 +14,7 @@ const NavItems = () => {
             const isActive = pathname.startsWith(link.route)
             
             return <li key={link.id} className='w-fit'>
-                <Link href={link.route} className={`flex items-center gap-x-2 text-md hover:text-blue-500 ${isActive ? "active text-blue-500 font-semibold" : ""}`}>
+                <Link href={link.route} className={`flex items-center gap-x-2 text-md hover:text-blue-500 hover:opacity-100 uppercase ${isActive ? "active text-blue-500 font-semibold opacity-100" : "opacity-40"}`}>
                     {link.title}
                 </Link>
             </li>

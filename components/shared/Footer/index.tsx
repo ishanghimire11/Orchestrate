@@ -8,7 +8,7 @@ import { footerInformation, footerSocials } from '@/constants'
 const Footer = () => {
   return (
     <footer className='pt-16 pb-8 bg-neutral-900 text-white px-4 md:px-12 lg:px-16'>
-      <div className='mb-16 lg:mb-28'>
+      <div className='mb-16 lg:mb-20'>
           <h2 className='max-w-[800px] text-center text-3xl md:text-4xl md:text-left lg:text-5xl font-bold bg-gradient-to-r from-green-400 to-blue-500 uppercase bg-clip-text text-transparent'>Managing events has never been this easier.</h2>
       </div>
       
@@ -17,7 +17,7 @@ const Footer = () => {
             return <div key={heading.id}>
                 <h3 className='uppercase text-xl lg:text-2xl opacity-50 pb-4'>{heading.subheading}</h3>
                 {heading.links.map(info => {
-                  return <Link href={info.link} key={info.id} target='_blank' className='block pb-2 w-fit'>
+                  return <Link href={info.link} key={info.id} target='_blank' className='block pb-2 w-fit hover:underline'>
                     {info.title}
                   </Link>
                 })}

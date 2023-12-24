@@ -8,8 +8,8 @@ export const headerLinks = [
     },
     {
         id: 2,
-        title: "Create Event",
-        route: "/events/create",
+        title: "Events",
+        route: "/events",
     },
     {
         id: 3,

@@ -1,14 +1,45 @@
-import Image from 'next/image'
-import { Button } from '@/components/ui/button'
-import logo from "./orchestrate.png"
-import Link from 'next/link'
+import Image from 'next/image';
+import React from 'react'
+import Link from 'next/link';
+
+import heroImage from "@/app/heroImage1.jpg"
+import { Button } from '@/components/ui/button';
+import { ArrowBigDownIcon } from 'lucide-react';
+import { CaretDownIcon } from '@radix-ui/react-icons';
+
+const Section = ({children, className:classes, id}: {children: React.ReactNode, className?: string, id?: string }) => {
+  return (
+    <section id={id} className={`px-4 md:px-12 lg:px-16 ${classes}`}>
+      {children}
+    </section>
+  )
+}
+
+export { Section };
+
+export function Hero(){
+    return(
+        <div className='h-[100vh] object-cover flex items-center justify-center relative px-8 md:px-12 lg:px-16' >
+          <Image src={heroImage} width={1920} height={1080} alt='hero' className='h-full w-full object-cover absolute z-0 hero-image'/>
+          <div className='absolute inset-0 bg-black opacity-70 z-10'></div>
+          <div className='z-20 text-center'>
+            <h1 className='text-5xl md:text-7xl text-white'>Orchestrate your vision. Elevate your event.</h1>
+          </div>
+          
+          <Button type='button' className='w-fit z-20 p-0 hover:bg-transparent absolute bottom-24' variant={"ghost"}>
+              <Link href="#events" className= "text-white flex flex-col justify-center items-center">
+                <CaretDownIcon className='w-16 h-16 animate-bounce'/>
+                  <span>Our Events</span>
+                </Link>
+          </Button>
+        </div>       
+    )
+}
 
 export default function Home() {
   return (
-    <main>
-      <div>
-
-      </div>
-    </main>
+    <>
+    <Hero />
+    </>
   )
 }
