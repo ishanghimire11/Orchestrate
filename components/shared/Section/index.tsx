@@ -9,6 +9,3 @@ const Section = ({children, className:classes, id}: {children: React.ReactNode, 
   }
   
   export default Section;
-
-
-  

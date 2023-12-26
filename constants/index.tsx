@@ -9,7 +9,7 @@ export const headerLinks = [
     {
         id: 2,
         title: "Events",
-        route: "/events",
+        route: "/events/create",
     },
     {
         id: 3,
@@ -131,3 +131,17 @@ export const footerInformation = [{
     ]
 },
 ]
+
+
+export const EventFormDefaultValues = {
+    title: "",
+    description: "",
+    location: "",
+    imageUrl: "",
+    startDateTime: new Date() ,
+    endDateTime: new Date(),
+    categoryId: "",
+    price: "",
+    isFree: false,
+    eventUrl: "",
+}

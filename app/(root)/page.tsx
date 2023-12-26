@@ -21,7 +21,7 @@ const Hero = () => {
                   <span>Our Events</span>
                 </Link>
           </Button>
-        </div>       
+        </div>    
     )
 }
 
