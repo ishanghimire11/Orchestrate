@@ -37,7 +37,7 @@ const Dropdown = ({value, onChangeHandler}: DropdownPropTypes) => {
                 }
                 <AlertDialog>
                     <AlertDialogTrigger className='pl-4 font-bold text-md text-blue-500 py-2'>Add new Category</AlertDialogTrigger>
-                        <AlertDialogContent>
+                        <AlertDialogContent className='bg-white'>
                             <AlertDialogHeader>
                            
                             <AlertDialogTitle className='mb-8'>Add an Event Category</AlertDialogTitle>
@@ -50,7 +50,7 @@ const Dropdown = ({value, onChangeHandler}: DropdownPropTypes) => {
                             
                             <AlertDialogFooter>
                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction onClick={() => startTransition(handleAddCategory)}>Save</AlertDialogAction>
+                                <AlertDialogAction onClick={() => startTransition(handleAddCategory)} className='bg-blue-500 hover:bg-blue-600 font-semibold text-white'>Save</AlertDialogAction>
                             </AlertDialogFooter>
                         </AlertDialogContent>
                 </AlertDialog>

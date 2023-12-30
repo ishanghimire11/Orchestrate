@@ -45,7 +45,7 @@ export const formatDateTime = (dateString: Date) => {
   }
 }
 
-export const convertFileToUrl = (file: File) => URL.createObjectURL(file)
+export const convertFileToUrl = (file: File) => URL.createObjectURL(file);
 
 export const formatPrice = (price: string) => {
   const amount = parseFloat(price)
