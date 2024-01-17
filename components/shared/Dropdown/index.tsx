@@ -38,9 +38,10 @@ const Dropdown = ({value, onChangeHandler}: DropdownPropTypes) => {
         try {
             const res = await createCategory({categoryName: newCategory.trim()});
             return setCategories((prev) => [...prev, res]);
+            
         } catch(error) {
-            return handleError(error);
-        }
+            handleError(error);
+        } 
     };
     
     return (
@@ -70,7 +71,13 @@ const Dropdown = ({value, onChangeHandler}: DropdownPropTypes) => {
                             
                             <AlertDialogFooter>
                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction onClick={() => startTransition(handleAddCategory)} className='bg-blue-500 hover:bg-blue-600 font-semibold text-white'>Save</AlertDialogAction>
+                                <AlertDialogAction 
+                                onClick={() => startTransition(() => {
+                                                handleAddCategory();
+                                                return undefined;
+                                            }
+                                        )}
+                                className='bg-blue-500 hover:bg-blue-600 font-semibold text-white'>Save</AlertDialogAction>
                             </AlertDialogFooter>
                         </AlertDialogContent>
                 </AlertDialog>

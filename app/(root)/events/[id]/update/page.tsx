@@ -6,7 +6,7 @@ import Section from '@/components/shared/Section'
 const UpdateEvent = () => {
   const gg = auth();
   const { sessionClaims } = auth();
-  const userId = sessionClaims?.sub as String;
+  const userId = sessionClaims?.sub as string;
 
   return (
     <Section className='py-8'>
