@@ -5,7 +5,7 @@ import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import DatePicker from "react-datepicker";
@@ -17,18 +17,49 @@ import Dropdown from '../Dropdown'
 import FileUploader from '../FileUploader'
 import { Calendar, DollarSign, Link, MapPinIcon, SplineIcon } from 'lucide-react'
 import { Checkbox } from '@/components/ui/checkbox'
+import { useUploadThing } from "@/lib/uploadThing";
+import { handleError } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
+import { createNewEvent } from '@/lib/actions/event.action'
 
-const EventForm = ({userId, type}: {userId: String, type: "create" | "update"}) => {
+const EventForm = ({userId, type}: {userId: string, type: "create" | "update"}) => {
     const [files, setFiles] = useState<File[]>([]);
     const initialValues = EventFormDefaultValues;
+    const router = useRouter();
 
     const form = useForm<z.infer<typeof EventformSchema>>({
         resolver: zodResolver(EventformSchema),
         defaultValues: initialValues
     })
 
-    function onSubmit(values: z.infer<typeof EventformSchema >) {
-        console.log(values)
+    const { startUpload } = useUploadThing("imageUploader");
+
+    async function onSubmit(values: z.infer<typeof EventformSchema >) {
+        let UploadedImageUrl = values.imageUrl;
+
+        if (files.length > 0) {
+            const uploadedImage = await startUpload(files)
+
+            if (uploadedImage) {
+                UploadedImageUrl = uploadedImage[0].url
+            }
+        }
+
+        if (type === "create") {
+            try {
+                const newEvent = await createNewEvent({
+                    event: {...values, imageUrl: UploadedImageUrl},
+                    userId,
+                    path: "/profile"
+                })
+                if (newEvent){
+                    form.reset();
+                    router.push(`/profile/${userId}`);
+                }
+            } catch(error) {
+                console.log(error)
+            }
+        }
     }
 
   return (
@@ -133,7 +164,7 @@ const EventForm = ({userId, type}: {userId: String, type: "create" | "update"}) 
                                                 <div className='flex item-center'>
                                                     <label htmlFor="isFree" className='whitespace-nowrap pr-3 leading-none peer-disabled cursor-not-allowed peer-disabled:opacity:60'>Free</label>
                                                     
-                                                    <Checkbox id="isFree"/>
+                                                    <Checkbox onCheckedChange={field.onChange} checked={field.value} id="isFree"/>
                                                 </div>
                                             </FormControl>
 

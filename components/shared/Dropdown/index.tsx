@@ -1,4 +1,4 @@
-import React, { startTransition, useState } from 'react'
+import React, { startTransition, useEffect, useState } from 'react'
 import {
     Select,
     SelectContent,
@@ -9,6 +9,8 @@ import {
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, } from "@/components/ui/alert-dialog"
 import { ICategory } from '@/lib/database/models/category.model';
 import { Input } from '@/components/ui/input';
+import { createCategory, getAllCategories } from '@/lib/actions/category.action';
+import { handleError } from '@/lib/utils';
 
 type DropdownPropTypes = {
     value?: string,
@@ -19,8 +21,26 @@ const Dropdown = ({value, onChangeHandler}: DropdownPropTypes) => {
     const [categories, setCategories] = useState<ICategory[]>([]);
     const [newCategory, setNewCategory] = useState<string>("");
 
-    const handleAddCategory = () => {
-        return;
+    const fetchCategories = async () => {
+        try {
+            const data = await getAllCategories();
+            return data && setCategories(data);
+        } catch (error) {
+            handleError(error);
+        }
+    }
+
+    useEffect(() => {
+        fetchCategories();
+    },[])
+
+    const handleAddCategory = async () => {
+        try {
+            const res = await createCategory({categoryName: newCategory.trim()});
+            return setCategories((prev) => [...prev, res]);
+        } catch(error) {
+            return handleError(error);
+        }
     };
     
     return (
@@ -32,7 +52,7 @@ const Dropdown = ({value, onChangeHandler}: DropdownPropTypes) => {
             <SelectContent>
                 {
                     categories.length > 0 && categories.map(category => {
-                        return <SelectItem key={category._id} value={category.id} className=''>{category.name}</SelectItem>
+                        return <SelectItem key={category._id} value={category._id} className=''>{category.name}</SelectItem>
                     })
                 }
                 <AlertDialog>

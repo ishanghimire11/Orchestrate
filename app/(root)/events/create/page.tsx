@@ -5,7 +5,8 @@ import Section from '@/components/shared/Section'
 
 const CreateEvent = () => {
   const { sessionClaims } = auth();
-  const userId = sessionClaims?.sub as String;
+  // console.log(sessionClaims?.userId.userId);
+  const userId = sessionClaims?.userId.userId as string;
 
   return (
     <Section className='py-12 md:py-16 lg:py-20'>
