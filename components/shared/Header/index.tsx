@@ -39,7 +39,7 @@ const Header = () => {
             <div className='flex justify-end items-center'>
                 <SignedOut>
                     <Link href={"/sign-in"}>
-                        <Button className='flex items-center gap-x-2 justify-end'>
+                        <Button className='flex items-center gap-x-2 justify-end text-white'>
                                 Sign-in
                                 <ArrowRightIcon />
                         </Button>
