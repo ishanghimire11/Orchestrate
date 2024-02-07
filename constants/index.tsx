@@ -14,7 +14,7 @@ export const headerLinks = [
   {
     id: 2,
     title: "Events",
-    route: "/events/create",
+    route: "/events",
   },
   {
     id: 3,

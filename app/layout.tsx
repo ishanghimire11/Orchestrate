@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
+import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import NextTopLoader from "nextjs-toploader";
-import "./globals.css";
 
 const space_Grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={space_Grotesk.variable}>
+        <body className={`scroll-smooth  ${space_Grotesk.variable}`}>
           <NextTopLoader />
           {children}
         </body>

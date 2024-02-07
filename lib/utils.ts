@@ -9,6 +9,24 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export const formattedDateAndTime = (date: Date) => {
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  };
+  const timeOptions: Intl.DateTimeFormatOptions = {
+    timeStyle: "short",
+  };
+
+  const formatedDate = new Date(date).toLocaleString("default", dateOptions);
+  const formatedTime = new Date(date).toLocaleString("default", timeOptions);
+  return {
+    formatedDate,
+    formatedTime,
+  };
+};
+
 export const formatDateTime = (dateString: Date) => {
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
     weekday: "short", // abbreviated weekday name (e.g., 'Mon')

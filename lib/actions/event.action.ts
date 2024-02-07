@@ -18,6 +18,16 @@ const populateEvent = async (query: any) => {
     .populate({ path: "category", model: Category, select: "_id name" });
 };
 
+const populateAllEvents = async () => {
+  return await Event.find()
+    .populate({
+      path: "organizer",
+      model: User,
+      select: "_id firstName lastName",
+    })
+    .populate({ path: "category", model: Category, select: "_id name" });
+};
+
 export const createNewEvent = async ({
   event,
   userId,
@@ -49,6 +59,16 @@ export const getEventDetails = async (eventId: string) => {
       return NextResponse.json({ error: "No event found", status: 204 });
     }
     return JSON.parse(JSON.stringify(event));
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const getAllEvents = async () => {
+  try {
+    await connectToDatabase();
+    const events = await populateAllEvents();
+    return events;
   } catch (error) {
     handleError(error);
   }

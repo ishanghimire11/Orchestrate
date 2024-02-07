@@ -71,7 +71,6 @@ const EventForm = ({
           userId,
           path: "/events",
         });
-        console.log(newEvent, "dhsuabndajskbdsb");
         if (newEvent) {
           form.reset();
           router.push(`/events/${newEvent._id}`);
@@ -129,7 +128,7 @@ const EventForm = ({
               <FormItem className="w-full">
                 <FormControl className="h-72">
                   <Textarea
-                    placeholder="Event Description (Max 400 words.)"
+                    placeholder="Event Description (Max 800 characters.)"
                     {...field}
                     className="w-full block resize-none"
                     id="description"
