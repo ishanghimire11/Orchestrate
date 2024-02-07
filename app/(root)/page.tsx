@@ -10,6 +10,10 @@ import { getAllEvents } from "@/lib/actions/event.action";
 import { formattedDateAndTime } from "@/lib/utils";
 import { ArrowRight, Heart } from "lucide-react";
 
+
+
+
+
 const EventList = async () => {
   const events = await getAllEvents();
   return (
