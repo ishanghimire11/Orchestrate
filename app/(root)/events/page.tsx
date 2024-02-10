@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-import { Heart, PlusIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import { formattedDateAndTime } from "@/lib/utils";
 import { getAllEvents } from "@/lib/actions/event.action";
 import Section from "@/components/shared/Section";
@@ -43,9 +43,6 @@ const Events = async () => {
                     <h3 className="font-medium tracking-wide text-xl group-hover:underline">
                       {event.title}
                     </h3>
-                    <span>
-                      <Heart className="w-5 h-5" />
-                    </span>
                   </div>
 
                   <p className="text-blue-600 font-medium text-sm">

@@ -28,22 +28,35 @@ import {
   Link,
   Loader2Icon,
   MapPinIcon,
+  TrashIcon,
 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useUploadThing } from "@/lib/uploadThing";
 import { handleError } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import { createNewEvent } from "@/lib/actions/event.action";
+import { createNewEvent, updateEvent } from "@/lib/actions/event.action";
+import Delete from "../Delete/Delete";
+import { Event } from "@/types";
 
-const EventForm = ({
-  userId,
-  type,
-}: {
+type EventFormProps = {
   userId: string;
   type: "create" | "update";
-}) => {
+  eventId?: string | "";
+  event?: Event;
+};
+
+const EventForm = ({ userId, type, eventId, event }: EventFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
-  const initialValues = EventFormDefaultValues;
+  const initialValues =
+    event && type === "update"
+      ? {
+          ...event,
+          startDateTime: new Date(event.startDateTime),
+          endDateTime: new Date(event.endDateTime),
+          categoryId: event.category._id,
+        }
+      : EventFormDefaultValues;
+
   const router = useRouter();
 
   const form = useForm<z.infer<typeof EventformSchema>>({
@@ -74,6 +87,29 @@ const EventForm = ({
         if (newEvent) {
           form.reset();
           router.push(`/events/${newEvent._id}`);
+        }
+      } catch (error) {
+        // handleError(error);
+        console.log(error);
+      }
+    }
+
+    if (type === "update") {
+      console.log("in update");
+      if (!eventId) {
+        router.push("/events");
+        return;
+      }
+      try {
+        const updatedEvent = await updateEvent({
+          event: { ...values, imageUrl: UploadedImageUrl, _id: eventId },
+          userId,
+          path: `/events/${eventId}`,
+        });
+
+        if (updatedEvent) {
+          form.reset();
+          router.push(`/events/${updatedEvent._id}`);
         }
       } catch (error) {
         // handleError(error);
@@ -325,21 +361,29 @@ const EventForm = ({
             )}
           />
         </div>
-        <Button
-          type="submit"
-          size={"lg"}
-          className="md:w-fit  bg-blue-500 hover:bg-blue-600 text-white font-semibold"
-          disabled={form.formState.isSubmitting}
-        >
-          {form.formState.isSubmitting ? (
-            <p className="flex items-center gap-x-2">
-              <Loader2Icon className="animate-spin w-6 h-6" />
-              <span>Submitting...</span>
-            </p>
-          ) : (
-            <span className="capitalize font-semibold">Submit</span>
-          )}
-        </Button>
+        <div className="flex gap-x-4 justify-start items-center">
+          <Button
+            type="submit"
+            size={"lg"}
+            className="md:w-fit  bg-blue-500 hover:bg-blue-600 text-white font-semibold"
+            disabled={form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting ? (
+              <p className="flex items-center gap-x-2">
+                <Loader2Icon className="animate-spin w-6 h-6" />
+                {type === "update" && <span>Updating...</span>}
+                {type === "create" && <span>Submitting...</span>}
+              </p>
+            ) : (
+              <span className="capitalize font-semibold">
+                {type === "update" && "Update"}
+                {type === "create" && "Submit"}
+              </span>
+            )}
+          </Button>
+
+          {type === "update" && <Delete eventId={eventId || ""} />}
+        </div>
       </form>
     </Form>
   );
